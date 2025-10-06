@@ -88,12 +88,12 @@ public class Combat {
                 }
                 System.out.println();
                 // Option the player selected
-                String userSelection = Main.forceCorrectInput(playerOptions);
+                String userSelection = TextFunct.forceCorrectInput(playerOptions);
                 if (userSelection.equals("1")) {         // The user chooses to attack
                     System.out.println("\n" + this.player.getName() + " goes for an attack!");
                     // Gives user a moment to prepare input
                     System.out.println("(Ready blade)");
-                    Main.forceCorrectInput("/");
+                    TextFunct.forceCorrectInput("/");
                     // Run math problem
                     MathFunct.runProblem(this.player, this.player.getTimer(), this.player.getAccuracyTracker());
                     // Retrieve the answer, time, and accuracy
@@ -121,7 +121,7 @@ public class Combat {
                     // if amount is reached
                     if (charge >= CHARGE_COST) {
                         System.out.println("Activate Charge Break?");
-                        String chargeOption = Main.forceCorrectInput(chargeOptions);
+                        String chargeOption = TextFunct.forceCorrectInput(chargeOptions);
                         // If user wants to activate charge break, apply bonus damage
                         // and reduce current charge
                         if (chargeOption.equals("Y")) {
@@ -154,7 +154,7 @@ public class Combat {
                 System.out.println("\n"+this.enemy.getName() + " goes for an attack!");
                 // Gives user a chance to prepare input
                 System.out.println("(Ready blade)");
-                Main.forceCorrectInput("/");
+                TextFunct.forceCorrectInput("/");
                 // Run math problem(s)
                 for (int i = 0; i < this.enemy.getNumAttacks(); i++) {
                     MathFunct.runProblem(this.enemy, this.player.getTimer(), this.player.getAccuracyTracker());

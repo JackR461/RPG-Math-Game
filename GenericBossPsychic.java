@@ -1,0 +1,25 @@
+public class GenericBossPsychic extends EnemyBoss {
+    
+    /*
+     * Attribute format:
+     * String name, int level, int XP,
+     *  int maxHP, int currentHP, int strength, int defense,
+     *  int minAttackNum, int maxAttackNum, int stepAttackNum, int addendNum,
+     *  int numAttacks, int speed
+     */
+
+    public GenericBossPsychic () {
+        super("Psychic", 3, 100, 
+            60, 60, 3, 0, 
+            0, 7, 2, 4, 
+            3, 1);
+    }
+
+    // Special ability removes defense from player
+    public void specialAbility(Player player) {
+        player.modifyDefense(-1);
+    }
+
+
+
+}

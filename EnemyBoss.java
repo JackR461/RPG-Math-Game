@@ -23,6 +23,7 @@ public abstract class EnemyBoss extends Enemy {
     }
 
     //
-    public abstract void specialAbility();
+    public void specialAbility(Player player) {}
+    
     
 }

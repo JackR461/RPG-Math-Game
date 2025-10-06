@@ -24,8 +24,8 @@ public class Fighter {
     //
     private final int STARTING_MAX_HP = 20;
     private final int STARTING_CURRENT_HP = 20;
-    private final int STARTING_STRENGTH = 1;
-    private final int STARTING_DEFENSE = 1;
+    private final int STARTING_STRENGTH = 4;
+    private final int STARTING_DEFENSE = 2;
     //
     private final int STARTING_MIN_ATTACK_NUM = 1;
     private final int STARTING_MAX_ATTACK_NUM = 3;
