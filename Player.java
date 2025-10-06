@@ -10,11 +10,11 @@ public class Player extends Fighter {
 
     // Constructor: (through parent constructor)
      public Player (
-        String name, int level, int XP, int coins,
+        String name, int level, int XP,
         int maxHP, int currentHP, int strength, int defense, int numMaxBlocks,
         int minAttackNum, int maxAttackNum, int stepAttackNum, int addendNum) 
         {
-        super(name, level, XP, coins, 
+        super(name, level, XP,
             maxHP, currentHP, strength, defense, 
             minAttackNum, maxAttackNum, stepAttackNum, addendNum);
         this.timer = new Timer();
@@ -35,5 +35,7 @@ public class Player extends Fighter {
     public int getNumMaxBlocks() {return numMaxBlocks;}
     // Setters:
     public void setNumMaxBlocks(int numMaxBlocks) {this.numMaxBlocks = numMaxBlocks;}
+    // Modifiers:
+    public void modifyNumMaxBlocks (int n) {this.numMaxBlocks += n;}
 
 }

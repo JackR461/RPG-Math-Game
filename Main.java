@@ -1,6 +1,8 @@
 /*
- * -How make 'beastiary'? (list of premade enemies/events/ect... to then pick one from)
+ * -How make 'beastiary'? (list of premade enemies/boons to then pick one from)
+ *      -files to sort?
  * -UI
+ * -ReadMe
  * -
  */
 
@@ -9,24 +11,18 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        // The character the user plays as
-        Player pc = new Player("Test");
 
+        Player player = new Player("Test");
+        Enemy enemy = new Enemy("Enemy", 2, 2);
 
+        Combat combat = new Combat(player, enemy);
+        combat.run();
 
 
     }
 
 
-    // Introduction/Tutorial
-    public static void introTutorial() {
-        // TODO: introduction/tutorial function
-    }
-
-    public static Player createCharacter(String name) {
-        Player player = new Player(name);
-        return player;
-    }
+    // TODO: Introduction/Tutorial/CharacterCreation
 
     // Forces the user to enter an answer found within the array,
     // then returns that input
@@ -69,6 +65,56 @@ public class Main {
         return userInput;
     }
 
+    /* Used to generate the generic list of enemies
+     * A player will face for WorldMap.
+     * 
+     * Enemy constructor:
+     *   String name, int level, int XP,
+     *   int maxHP, int currentHP, int strength, int defense,
+     *   int minAttackNum, int maxAttackNum, int stepAttackNum, int addendNum,
+     *   int numAttacks, int speed
+     */
+    private ArrayList<Enemy> generateEnemyList() {
+        ArrayList<Enemy> genericEnemyEncounters = new ArrayList<>();
+        Enemy enemy1 = new Enemy
+                            ("Swordsperson", 1, 15, 
+                            25, 25, 2, 1, 
+                            1, 5, 1, 3, 
+                            2, 2);
+        genericEnemyEncounters.add(enemy1);
+        Enemy enemy2 = new Enemy
+                            ("Shieldsperson", 1, 15,
+                            20, 20, 1, 3,
+                            0, 30, 5, 2, 
+                            1, 5);
+        genericEnemyEncounters.add(enemy2);
+        Enemy enemy3 = new Enemy
+                            ("Robot", 1, 15,
+                            15, 15, 2, 3, 
+                            0, 1, 1, 8,
+                            1, 3);
+        genericEnemyEncounters.add(enemy3);
+        Enemy enemy4 = new Enemy
+                            ("Triangle Wielder", 1, 15,
+                            33, 33, 1, 0, 
+                            3, 9, 3, 3,
+                            3, 3);
+        genericEnemyEncounters.add(enemy4);
+        Enemy enemy5 = new Enemy
+                            ("Giant", 1, 15,
+                            50, 50, 2, 0, 
+                            10, 30, 1, 2,
+                            1, 5);
+        genericEnemyEncounters.add(enemy5);
+        Enemy enemy6 = new Enemy
+                            ("Archer", 1, 15,
+                            40, 40, 1, 1, 
+                            0, 8, 2, 2,
+                            2, 2);
+        genericEnemyEncounters.add(enemy6);
+        // Return list of generic enemy encounters
+        return genericEnemyEncounters;
+    }
 
 
 }

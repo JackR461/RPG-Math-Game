@@ -15,70 +15,65 @@ import java.util.Scanner;
 public class Combat {
 
     // Attributes:
-    // Difficulty levels used for determining Player attack speed
-    private final int DIFF_LVL_5 = 0;    // Difficulty (Hard+)
-    private final int DIFF_LVL_4 = 1;    // Difficulty (Hard)
-    private final int DIFF_LVL_3 = 2;    // Difficulty (Medium)
-    private final int DIFF_LVL_2 = 4;    // Difficulty (Easy)
-    private final int DIFF_LVL_1 = 10;   // Difficulty (Easy+)
+    // The participants in the combat
+    Enemy enemy;
+    Player player;
+    // How fast the player must attack to get bonus charge
+    private final int SPEED_BONUS = 2;
     // Charge requirement needed for determining bonus damage
     private final int CHARGE_COST = 10;
     private final int CHARGE_BONUS_DAMAGE = 10;
     // User options for charge_cost
     private final ArrayList<String> chargeOptions = new ArrayList<>();
+    // Used to determine the amount health the user recovers after a combat
+    private final int AFTER_COMBAT_HEAL = 5;
+
     // Logs combat
     private boolean victory;    // True: won; False: lost
 
     // Constructor:
-    public Combat() {
+    public Combat(Player player, Enemy enemy) {
+        this.player = player;
+        this.enemy = enemy;
         victory = false;
     }
 
     // runs combat (level is the difficulty level; 1-5)
-    public void run(Player player, Enemy enemy, int level) {
+    public void run() {
         // Used to read user inputs
         Scanner scanner = new Scanner(System.in);
         boolean playerTurn=true;  // True: player's turn; False: enemy's turn
         boolean playerIsBlocking=false; // True: player is blocking; False: player is not blocking
         int turnCount = 1;   // # of turns the combat has lasted
         int charge = 0;      // charge value; used for player abilities
-        int blocksRemaining = player.getNumMaxBlocks();
+        int blocksRemaining = this.player.getNumMaxBlocks();
         // Add user options for charge cost
         chargeOptions.add("Y");
         chargeOptions.add("N");
-        // Determines how fast the player must attack (answer correctly) to receive bonus charge
-        int diff = 0;
-        switch(level) {
-            case 1: diff = DIFF_LVL_1; break;
-            case 2: diff = DIFF_LVL_2; break;
-            case 3: diff = DIFF_LVL_3; break;
-            case 4: diff = DIFF_LVL_4; break;
-            case 5: diff = DIFF_LVL_5; break;
-        }
         // Determines who goes first
         Random random = new Random();
         int randInt = random.nextInt(2);
         if (randInt == 0) {
             playerTurn = false;
-        } else if (randInt == 1) {
+        } else {
             playerTurn = true;
         }
         // Announce who goes first
         System.out.println("A coin is tossed...");
         if (playerTurn == true) {
-            System.out.println(player.getName() + " goes first!");
+            System.out.println(this.player.getName() + " goes first!");
         } else {
-            System.out.println(enemy.getName() + " goes first!");
+            System.out.println(this.enemy.getName() + " goes first!");
         }
         System.out.println();
         // Player and Enemy take turns in combat until one is defeated (currentHP = 0)
-        while (player.getCurrentHP() > 0 && enemy.getCurrentHP() > 0) {
+        while (this.player.getCurrentHP() > 0 && this.enemy.getCurrentHP() > 0) {
             if (playerTurn == true) {    // player's turn
                 playerIsBlocking = false;   // reset player's blocking status
                 charge += 1;    // charge increased at start of turn
-                System.out.println("=== " + player.getName()+ "'s Turn ===");
+                System.out.println("=== " + this.player.getName()+ "'s Turn ===");
                 System.out.println("Turn: " + turnCount);
-                System.out.println("HP: " + player.getCurrentHP()+"/"+player.getMaxHP()); 
+                System.out.println("HP: " + this.player.getCurrentHP()+"/"+this.player.getMaxHP()); 
                 System.out.println("Charge: " + charge); 
                 // Options for player on their turn:
                 ArrayList<String> playerOptions = new ArrayList<>();
@@ -95,32 +90,32 @@ public class Combat {
                 // Option the player selected
                 String userSelection = Main.forceCorrectInput(playerOptions);
                 if (userSelection.equals("1")) {         // The user chooses to attack
-                    System.out.println("\n" + player.getName() + " goes for an attack!");
+                    System.out.println("\n" + this.player.getName() + " goes for an attack!");
                     // Gives user a moment to prepare input
                     System.out.println("(Ready blade)");
                     Main.forceCorrectInput("/");
                     // Run math problem
-                    MathFunct.runProblem(player, player.getTimer(), player.getAccuracyTracker());
+                    MathFunct.runProblem(this.player, this.player.getTimer(), this.player.getAccuracyTracker());
                     // Retrieve the answer, time, and accuracy
                     int baseDamage = MathFunct.getLastAnswer();    // damage dealt related to answer
-                    long timeTaken = player.getTimer().getLastTime();   // time taken affects bonuses
-                    boolean problemAccuracy = player.getAccuracyTracker().getLastAccuracy();    // accuracy affects damage
+                    long timeTaken = this.player.getTimer().getLastTime();   // time taken affects bonuses
+                    boolean problemAccuracy = this.player.getAccuracyTracker().getLastAccuracy();    // accuracy affects damage
                     // Computes damage to be inflicted to enemy
-                    int damageDealt = player.getStrength(); // Player strength always applied
-                    damageDealt -= enemy.getDefense();  // Enemy defense always applied against incoming damage
+                    int damageDealt = this.player.getStrength(); // Player strength always applied
+                    damageDealt -= this.enemy.getDefense();  // Enemy defense always applied against incoming damage
                     // If the problem is answered correctly, deal damage relative to math problem
                     if (problemAccuracy == true) {
                         damageDealt += baseDamage;
                         charge += 1;    // Charge increased on correct answer
                         // If the problem is answered fast enough, gain additional charge
-                        if (timeTaken <= diff) {
+                        if (timeTaken <= SPEED_BONUS) {
                             charge += 1;
                             System.out.println("Fast attack!");
                         }
                     } else {
                         charge = 0; // Charge reset on incorrect attack
                         System.out.print("Tempo interrupted! ");
-                        System.out.println(player.getName() + " is thown off balance!");
+                        System.out.println(this.player.getName() + " is thown off balance!");
                     }
                     // Allow user to use charge to deal additional damage
                     // if amount is reached
@@ -133,57 +128,61 @@ public class Combat {
                             System.out.println("\n- Charge unleashed! -");
                             charge -= CHARGE_COST;
                             damageDealt += CHARGE_BONUS_DAMAGE;
-                            damageDealt += enemy.getDefense();  // charged attack pierces enemy armor
+                            damageDealt += this.enemy.getDefense();  // charged attack pierces enemy armor
                         }
                     }
+                    // If the damage received would be negative, it is zero
+                    if  (damageDealt < 0) {
+                        damageDealt = 0;
+                    }
                     // Deal damage to enemy
-                    enemy.modifyCurrentHP(-damageDealt);
+                    this.enemy.modifyCurrentHP(-damageDealt);
                     // Show user damage dealt
                     System.out.println("\n" + damageDealt + " damage dealt!");
                 } else if (userSelection.equals("2")) {  // The user chooses to block
-                    System.out.println("\n" + player.getName() + " raises their defenses temporarily against incoming attacks!");
+                    System.out.println("\n" + this.player.getName() + " raises their defenses temporarily against incoming attacks!");
                     playerIsBlocking = true; // set player blocking status to true
                     blocksRemaining -= 1; // reduce blocks left this combat
                     charge += 2; // increase charge
                 }
             } else {                    // enemy's turn
-                System.out.println("=== " + enemy.getName() + "'s Turn ==="); 
+                System.out.println("=== " + this.enemy.getName() + "'s Turn ==="); 
                 System.out.println("Turn: " + turnCount);
-                System.out.println("HP: " + enemy.getCurrentHP()+"/"+enemy.getMaxHP());   
+                System.out.println("HP: " + this.enemy.getCurrentHP()+"/"+this.enemy.getMaxHP());   
                 
                 // Enemy chooses to attack
-                System.out.println("\n"+enemy.getName() + " goes for an attack!");
+                System.out.println("\n"+this.enemy.getName() + " goes for an attack!");
                 // Gives user a chance to prepare input
                 System.out.println("(Ready blade)");
                 Main.forceCorrectInput("/");
                 // Run math problem(s)
-                for (int i = 0; i < enemy.getNumAttacks(); i++) {
-                    MathFunct.runProblem(enemy, player.getTimer(), player.getAccuracyTracker());
+                for (int i = 0; i < this.enemy.getNumAttacks(); i++) {
+                    MathFunct.runProblem(this.enemy, this.player.getTimer(), this.player.getAccuracyTracker());
                 }
                 int damageReceived = 0; // damage enemy will deal to player
                 // Compute damage dealt
-                for (int i = 0; i < enemy.getNumAttacks(); i++) {
-                    int timeIndex = player.getTimer().getTimesSize()-(enemy.getNumAttacks()-i);  // index of attack's time in Timer
-                    int accuracyIndex = player.getAccuracyTracker().getAccuracySize()-(enemy.getNumAttacks()-i);  // index of attack's accuracy in Timer
+                for (int i = 0; i < this.enemy.getNumAttacks(); i++) {
+                    int timeIndex = this.player.getTimer().getTimesSize()-(this.enemy.getNumAttacks()-i);  // index of attack's time in Timer
+                    int accuracyIndex = this.player.getAccuracyTracker().getAccuracySize()-(this.enemy.getNumAttacks()-i);  // index of attack's accuracy in Timer
                     // If the answer is correct, the user's defense reduces the damage
-                    if (player.getAccuracyTracker().getAccuracy(accuracyIndex) == true) {
+                    if (this.player.getAccuracyTracker().getAccuracy(accuracyIndex) == true) {
                         System.out.println("Attack " + (i + 1) + " staggered!");
                         charge += 1; // charge increased on correct answer
-                        damageReceived += enemy.getStrength();
-                        damageReceived -= player.getDefense();
+                        damageReceived += this.enemy.getStrength();
+                        damageReceived -= this.player.getDefense();
                         // If the question is answered fast enough, gain bonus charge
-                        if (player.getTimer().getTime(timeIndex) <= enemy.getSpeed()) {
+                        if (this.player.getTimer().getTime(timeIndex) <= this.enemy.getSpeed()) {
                             System.out.println("Quick reaction!");
                             charge += 1; // bonus charge
                         }
                     } else {
                         System.out.println("Attack hits!");
-                        damageReceived += enemy.getStrength();
+                        damageReceived += this.enemy.getStrength();
                     }
                 }
                 // If the player chose to block, reduce damage received additionally
                 if (playerIsBlocking) {
-                    damageReceived -= (player.getDefense()*enemy.getNumAttacks());
+                    damageReceived -= (this.player.getDefense()*this.enemy.getNumAttacks());
                 }                
                 // If the damage received would be negative, it is zero
                 if (damageReceived < 0) {
@@ -200,12 +199,16 @@ public class Combat {
         }
         // When combat is finished, determine who one or lost
         // and act accordingly
-        if (enemy.getCurrentHP() < 0) {     // enemy lost
+        if (this.enemy.getCurrentHP() < 0) {     // enemy lost
             System.out.println("=== You won! === ");
             victory = true; // log player has won the battle
+            // Give out winnings
             System.out.println("Winnings:\n");
-            System.out.println("Coins: " + enemy.getCoins());
-            System.out.println("XP: "  + enemy.getXP());
+            System.out.println("XP: "  + this.enemy.getXP());
+            // Small heal to user
+            player.modifyCurrentHP(AFTER_COMBAT_HEAL);
+            System.out.println("\nafter a deep breath, " + AFTER_COMBAT_HEAL + " health was recovered!");
+            System.out.println("Current HP: " + player.getCurrentHP());
         } else {        // player lost
             System.out.println("=== Game Over ===");
         }

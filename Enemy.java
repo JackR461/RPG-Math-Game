@@ -13,12 +13,12 @@ public class Enemy extends Fighter{
 
     // Constructor: (through parent constructor)
      public Enemy (
-        String name, int level, int XP, int coins,
+        String name, int level, int XP,
         int maxHP, int currentHP, int strength, int defense,
         int minAttackNum, int maxAttackNum, int stepAttackNum, int addendNum,
         int numAttacks, int speed) 
         {
-        super(name, level, XP, coins, 
+        super(name, level, XP, 
             maxHP, currentHP, strength, defense, 
             minAttackNum, maxAttackNum, stepAttackNum, addendNum);
             this.numAttacks = numAttacks;
@@ -28,6 +28,8 @@ public class Enemy extends Fighter{
     public Enemy(String name, int numAttacks, int speed) 
         {
         super(name);
+        this.numAttacks = numAttacks;
+        this.speed = speed;
         }
 
     // Setters:
