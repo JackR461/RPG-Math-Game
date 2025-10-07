@@ -3,13 +3,13 @@
  * All boons affect a player, but their benefits vary.
  */
 
-public class Boon {
+public class Boons {
 
     // Attributes:
     Player player;  // the player the boon affects
 
     // Constructor:
-    public Boon(Player player) {
+    public Boons(Player player) {
         this.player = player;
     }
 

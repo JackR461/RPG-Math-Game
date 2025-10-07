@@ -1,6 +1,5 @@
 /*
- * -How make 'beastiary'? (list of premade enemies/boons to then pick one from)
- *      -files to sort?
+ * -Folders for better organization?
  * -UI
  * -ReadMe
  * -
