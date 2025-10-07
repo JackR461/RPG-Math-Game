@@ -108,7 +108,7 @@ public class Fighter {
     public void modifyMinAttackNum(int n) {this.minAttackNum += n;}
     public void modifyMaxAttackNum(int n) {this.maxAttackNum += n;}
     public void modifyStepAttackNum(int n) {this.stepAttackNum += n;}
-    public void modifyStepAddendNum(int n) {this.addendNum += n;}
+    public void modifyAddendNum(int n) {this.addendNum += n;}
 
 
 
