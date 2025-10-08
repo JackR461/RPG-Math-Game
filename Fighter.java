@@ -22,8 +22,8 @@ public class Fighter {
     private final int STARTING_LEVEL = 1;
     private final int STARTING_XP = 0;
     //
-    private final int STARTING_MAX_HP = 20;
-    private final int STARTING_CURRENT_HP = 20;
+    private final int STARTING_MAX_HP = 40;
+    private final int STARTING_CURRENT_HP = 40;
     private final int STARTING_STRENGTH = 4;
     private final int STARTING_DEFENSE = 2;
     //
@@ -102,7 +102,13 @@ public class Fighter {
     public void modifyLevel(int n) {this.level += n;}
     public void modifyXP(int n) {this.XP += n;}
     public void modifyMaxHP(int n) {this.maxHP += n;}
-    public void modifyCurrentHP(int n) {this.currentHP += n;}
+    public void modifyCurrentHP(int n) {
+        this.currentHP += n;
+        // A player can never have more HP than their max HP
+        if (this.currentHP > this.maxHP) {
+            this.currentHP = this.maxHP;
+        }
+    }
     public void modifyStrength(int n) {this.strength += n;}
     public void modifyDefense(int n) {this.defense += n;}
     public void modifyMinAttackNum(int n) {this.minAttackNum += n;}

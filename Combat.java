@@ -26,7 +26,7 @@ public class Combat {
     // User options for charge_cost
     private final ArrayList<String> chargeOptions = new ArrayList<>();
     // Used to determine the amount health the user recovers after a combat
-    private final int AFTER_COMBAT_HEAL = 5;
+    private final int AFTER_COMBAT_HEAL = 10;
 
     // Logs combat
     private boolean victory;    // True: won; False: lost
