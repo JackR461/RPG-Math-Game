@@ -51,15 +51,22 @@ public class WorldMap {
             // based on combats per rest
             for (int i = 0; i < combatsPerRest; i++) {
 
-                // TODO: generic combat with random enemy from list
-                // TODO: check for if won AND if have enough xp
-                // TODO: level up sequence
-                // TODO: campfire sequence when enough combats reached
+                // Select random enemy to fight player
+                // Remove from potential list
+
+                // Generate combat
+
+                // If player has won, check if they have enough xp for a level up
+                // If they have enough XP, they can choose between one of three boons
+
+                // If enough combats are completed, the player rests
+                // (heals HP at a campfire)
+
 
             }
-
-
+            
             // TODO: done generic combats -> random boss
+
         }
 
 

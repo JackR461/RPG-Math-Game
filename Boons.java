@@ -7,6 +7,7 @@ public class Boons {
 
     // Attributes:
     Player player;  // the player the boon affects
+    private final int NUM_BOONS = 8;  // number of unique boons
 
     // Constructor:
     public Boons(Player player) {
@@ -22,19 +23,17 @@ public class Boons {
             // Increase current HP to full
             case 1: this.player.setCurrentHP(this.player.getMaxHP()); break;
             // Increase strength
-            case 2: this.player.modifyStrength(2); break;
-            // Increase defense
-            case 3: this.player.modifyDefense(2); break;
+            case 2: this.player.modifyStrength(1); break;
             // Increase number of maximum blocks per combat
-            case 4: this.player.modifyNumMaxBlocks(2); break;
+            case 3: this.player.modifyNumMaxBlocks(1); break;
             // Increase minimum attack number
-            case 5: this.player.modifyMinAttackNum(1); break;
+            case 4: this.player.modifyMinAttackNum(1); break;
             // Increase maximum attack number
-            case 6: this.player.modifyMaxAttackNum(1); break;
+            case 5: this.player.modifyMaxAttackNum(1); break;
             // Increase step attack number
-            case 7: this.player.modifyStepAttackNum(1); break;
+            case 6: this.player.modifyStepAttackNum(1); break;
             // Increase number of addends
-            case 8: this.player.modifyAddendNum(1); break;
+            case 7: this.player.modifyAddendNum(1); break;
             // If index invalid, do nothing
             default:
             System.out.println("Invalid index");
@@ -46,5 +45,6 @@ public class Boons {
     public void setPlayer(Player player) {this.player = player;}
     // Getters:
     public Player getPlayer() {return this.player;}
+    public int getNumBoons() {return NUM_BOONS;}
 
 }

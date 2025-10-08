@@ -7,6 +7,8 @@ import java.util.ArrayList;
 // Regular enemies
 public class GenericEncounters {
     
+    private final int NUM_TOTAL_ENEMIES = 6;
+
     // Generates list of regular enemies a player will face
     // on the WorldMap
     /*
