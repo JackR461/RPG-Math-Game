@@ -21,14 +21,14 @@ public class WorldMap {
     private Boons boons;
     private EnemyBoss bbeg; // The boss the player must fight at the end 
 
-    private final int DEFAULT_TOTAL_COMBAT_NUM = 4; // normally, the total number of enemy fights is 6
-    private final int DEFAULT_TOTAL_COMBATS_PER_REST = 2; // normally, for every 3 fights, there is 1 rest
+    private final int DEFAULT_TOTAL_COMBAT_NUM = 4; // default number of combats is 4
+    private final int DEFAULT_TOTAL_COMBATS_PER_REST = 3; // normally, for every 3 fights, there is 1 rest
 
     // Constructor:
     public WorldMap (int totalCombats, int combatsPerRest, ArrayList<Enemy> enemyEncounters, Boons boons, EnemyBoss bbeg) {
         this.totalCombats = totalCombats;
         this.combatsPerRest = combatsPerRest;
-        this.coveredCombats = 0;
+        this.coveredCombats = 0;    // starts at no combats covered
         this.enemyEncounters = enemyEncounters;
         this.boons = boons;
         this.bbeg = bbeg;
@@ -42,6 +42,29 @@ public class WorldMap {
         this.boons = boons;
         this.bbeg = bbeg;
     }
+
+    // Allows user to play through a given world
+    public void play(Player player) {
+        // While player has not lost, run through map of world
+        while (player.getCurrentHP() > 0) {
+            // Player goes through a number of combats
+            // based on combats per rest
+            for (int i = 0; i < combatsPerRest; i++) {
+
+                // TODO: generic combat with random enemy from list
+                // TODO: check for if won AND if have enough xp
+                // TODO: level up sequence
+                // TODO: campfire sequence when enough combats reached
+
+            }
+
+
+            // TODO: done generic combats -> random boss
+        }
+
+
+    }
+
 
     // Setters:
     public void setTotalCombats(int totalCombats) {this.totalCombats = totalCombats;}
@@ -59,10 +82,7 @@ public class WorldMap {
     public EnemyBoss getBbeg () {return this.bbeg;}
 
     
-    // Allows user to play through a game
-    public void play() {
 
-    }
 
 
 }

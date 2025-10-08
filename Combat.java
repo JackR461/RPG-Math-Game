@@ -29,13 +29,13 @@ public class Combat {
     private final int AFTER_COMBAT_HEAL = 10;
 
     // Logs combat
-    private boolean victory;    // True: won; False: lost
+    private boolean hasWon;    // True: won; False: lost
 
     // Constructor:
     public Combat(Player player, Enemy enemy) {
         this.player = player;
         this.enemy = enemy;
-        victory = false;
+        hasWon = false;
     }
 
     // runs combat (level is the difficulty level; 1-5)
@@ -201,7 +201,7 @@ public class Combat {
         // and act accordingly
         if (this.enemy.getCurrentHP() < 0) {     // enemy lost
             System.out.println("=== You won! === ");
-            victory = true; // log player has won the battle
+            hasWon = true; // log player has won the battle
             // Give out winnings
             System.out.println("Winnings:\n");
             System.out.println("XP: "  + this.enemy.getXP());
@@ -215,7 +215,7 @@ public class Combat {
     }
 
 
-    public boolean getCombatResult() {return this.victory;}
+    public boolean getCombatResult() {return this.hasWon;}
 
     
 }
