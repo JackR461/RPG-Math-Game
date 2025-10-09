@@ -50,16 +50,35 @@ public class WorldMap {
             // Player goes through a number of combats
             // based on combats per rest
             for (int i = 0; i < combatsPerRest; i++) {
-
                 // Select random enemy to fight player
+                Random random = new Random();
+                int randomEnemyIndex = random.nextInt(enemyEncounters.size());
+                Enemy randomEnemy = enemyEncounters.get(randomEnemyIndex);
                 // Remove from potential list
-
+                enemyEncounters.remove(randomEnemyIndex);
                 // Generate combat
-
+                Combat combat = new Combat(player, randomEnemy);
+                combat.run();
                 // If player has won, check if they have enough xp for a level up
-                // If they have enough XP, they can choose between one of three boons
+                if (combat.getCombatResult() == true) {
+                    // If they have enough XP, level up
+                    if (player.getXP() >= player.getXPForLevelUp()) {
+                        player.modifyXP(-player.getXPForLevelUp());
+                        player.modifyLevel(1);
+                        System.out.println("Level up!");
+                        System.out.println("Current level: " + player.getLevel());
+                        player.modifyXPForLevelUp(player.getXPForLevelUp()); // XP requirement doubled                 
+                        // TODO: The player chooses between one of three boons
+                    
+                    
+                    }
+                } else {
+                    // If they have lost, exit loop
+                    return;
+                }
 
-                // If enough combats are completed, the player rests
+
+                // TODO: If enough combats are completed, the player rests
                 // (heals HP at a campfire)
 
 
@@ -67,6 +86,8 @@ public class WorldMap {
             
             // TODO: done generic combats -> random boss
 
+
+            
         }
 
 
