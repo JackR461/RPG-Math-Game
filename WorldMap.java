@@ -46,8 +46,9 @@ public class WorldMap {
 
     // Allows user to play through a given world
     public void play(Player player) {
-        // While player has not lost, run through map of world
-        while (player.getCurrentHP() > 0) {
+        // While player has not lost, there are still enemies to fight, and there should still be another combat,
+        // run through world
+        while (player.getCurrentHP() > 0 && (enemyEncounters.size() != 0) && coveredCombats < totalCombats) {
             // Player goes through a number of combats
             // based on combats per rest
             for (int i = 0; i < combatsPerRest; i++) {

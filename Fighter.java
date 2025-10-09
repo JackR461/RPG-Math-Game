@@ -111,7 +111,13 @@ public class Fighter {
     }
     public void modifyStrength(int n) {this.strength += n;}
     public void modifyDefense(int n) {this.defense += n;}
-    public void modifyMinAttackNum(int n) {this.minAttackNum += n;}
+    public void modifyMinAttackNum(int n) {
+        this.minAttackNum += n;
+        // A player can never have their minimum number larger than their maximum number
+        if (this.minAttackNum > this.maxAttackNum) {
+            this.minAttackNum = this.maxAttackNum;
+        }
+    }
     public void modifyMaxAttackNum(int n) {this.maxAttackNum += n;}
     public void modifyStepAttackNum(int n) {this.stepAttackNum += n;}
     public void modifyAddendNum(int n) {this.addendNum += n;}
