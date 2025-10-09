@@ -149,7 +149,11 @@ public class Combat {
                 System.out.println("=== " + this.enemy.getName() + "'s Turn ==="); 
                 System.out.println("Turn: " + turnCount);
                 System.out.println("HP: " + this.enemy.getCurrentHP()+"/"+this.enemy.getMaxHP());   
-                
+                //If the Enemy is a boss, activate it's special ability
+                if (this.enemy instanceof EnemyBoss) {
+                    ((EnemyBoss)this.enemy).specialAbility(player);
+                    System.out.println(((EnemyBoss)this.enemy).getAbilityDesc());
+                }
                 // Enemy chooses to attack
                 System.out.println("\n"+this.enemy.getName() + " goes for an attack!");
                 // Gives user a chance to prepare input

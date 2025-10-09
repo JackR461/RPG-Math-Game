@@ -11,9 +11,9 @@ public class Main {
     public static void main(String[] args) {
 
         Player player = new Player("Test");
-        GenericBossPsychic psychic = new GenericBossPsychic();
+        GenericBossPsychic enemy = new GenericBossPsychic();
 
-        Combat combat = new Combat(player, psychic);
+        Combat combat = new Combat(player, enemy);
 
         combat.run();
 
