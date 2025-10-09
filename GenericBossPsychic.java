@@ -10,8 +10,8 @@ public class GenericBossPsychic extends EnemyBoss {
 
     public GenericBossPsychic () {
         super("Psychic", 3, 100, 
-            60, 60, 3, 0, 
-            0, 7, 2, 4, 
+            60, 60, 4, 0, 
+            0, 6, 2, 4, 
             3, 1);
     }
 

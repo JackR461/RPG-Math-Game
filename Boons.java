@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /*
  * Used to construct the rewards a player gets for leveling up.
  * All boons affect a player, but their benefits vary.
@@ -40,6 +42,12 @@ public class Boons {
         }
     }
 
+    // Select a random benefit
+    public void gainRandomBenefit() {
+        Random random = new Random();
+        int randomSelection = random.nextInt(NUM_BOONS);
+        gainBenefit(randomSelection);
+    }
 
     // Setters:
     public void setPlayer(Player player) {this.player = player;}

@@ -23,6 +23,7 @@ public class WorldMap {
 
     private final int DEFAULT_TOTAL_COMBAT_NUM = 4; // default number of combats is 4
     private final int DEFAULT_TOTAL_COMBATS_PER_REST = 3; // normally, for every 3 fights, there is 1 rest
+    private final int REST_HEAL = 5;    // amount a player will heal at a rest site
 
     // Constructor:
     public WorldMap (int totalCombats, int combatsPerRest, ArrayList<Enemy> enemyEncounters, Boons boons, EnemyBoss bbeg) {
@@ -59,6 +60,8 @@ public class WorldMap {
                 // Generate combat
                 Combat combat = new Combat(player, randomEnemy);
                 combat.run();
+                // Increase combats covered
+                this.coveredCombats++;
                 // If player has won, check if they have enough xp for a level up
                 if (combat.getCombatResult() == true) {
                     // If they have enough XP, level up
@@ -76,12 +79,14 @@ public class WorldMap {
                     // If they have lost, exit loop
                     return;
                 }
-
-
-                // TODO: If enough combats are completed, the player rests
+                // If enough combats are completed, the player rests
                 // (heals HP at a campfire)
-
-
+                if (coveredCombats % combatsPerRest == 0) {
+                    System.out.println("Seeing night fall, you rest");
+                    player.modifyCurrentHP(5);
+                    System.out.println(REST_HEAL + " HP recovered!");
+                    System.out.println("Curren HP: " + player.getCurrentHP());
+                }
             }
             
             // TODO: done generic combats -> random boss

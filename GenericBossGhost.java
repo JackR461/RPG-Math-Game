@@ -10,7 +10,7 @@ public class GenericBossGhost extends EnemyBoss {
 
     public GenericBossGhost () {
         super("Ghost", 3, 100, 
-            50, 50, 3, 2, 
+            50, 50, 4, 99, 
             0, 10, 1, 3, 
             3, 2);
     }
